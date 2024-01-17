@@ -1,0 +1,31 @@
+###
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    "username": "zoor",
+    "email": "root@gmail.com",
+    "password": "Root0123",
+    "roles": "admin"
+}
+
+###
+POST http://localhost:3000/auth/login?apiKey=ce7cc67c761340b7b7af
+Content-Type: application/json
+
+{
+    "email": "root@gmail.com",
+    "password": "Root0123"
+}
+###
+POST http://localhost:3000/createapp?apiKey=ce7cc67c761340b7b7af
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YTdhYTcyZmI2N2ZmMjRmNzI3YTI1OSIsInVzZXJuYW1lIjoiem9vciIsImlhdCI6MTcwNTQ5MDU0OX0.3yxkoBXZqvS5216INfVhOmrf-vPCW_EEcQfBTGvPkpw
+
+
+{
+    "folderName" : "b2"
+}
+
+### 
+GET http://localhost:3000/getAllBuckets

@@ -1,16 +1,14 @@
 import express, { NextFunction, Request, Response } from 'express';
 const router = express.Router();
-import upload from '../middleware/multer'
-import { uploadFile } from '../controllers/uploadController';
+import upload from '../middleware/uploadMiddleware'
+import { getAllBuckets, getFileFromBucket, uploadFile, uploadFileToBucket } from '../controllers/uploadController';
+import { authenticateToken, userAuthMiddleware } from '../middleware/authMiddleware';
+import File from '../model/file'
 
+//router.post('/upload',upload.single('file'), uploadFile)
+router.post("/upload",  userAuthMiddleware,/* authenticateToken, */upload.single("myFile"),uploadFileToBucket);
 
-router.post('/upload',upload.single('file'), (req:any,res:any,next:any)=>{
-        try{
-            return res.status(201).json({
-                message: 'File uploade success!'
-            })
-        }catch(err){
-            console.error(err)
-        }
-})
+router.get("/getAllBuckets", getAllBuckets)
+// get list of all files from a Particular bucket
+router.get("/getAllFilesFromParticularBucket",getFileFromBucket);
 export default router;

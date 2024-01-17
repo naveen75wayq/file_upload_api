@@ -4,6 +4,7 @@ export interface FileDocument extends Document {
     filename: string;
     mimeType: string;
     path: string;
+    
 }
 const fileSchema = new Schema<FileDocument>({
     userId: [

@@ -1,0 +1,230 @@
+{
+	"info": {
+		"_postman_id": "12a73772-95e0-4251-a7ce-93dee6ea3953",
+		"name": "test cases",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32353789"
+	},
+	"item": [
+		{
+			"name": "Upload files",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "myfile",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/upload?apiKey=4ab6adccb1719148d24d&folderName=b2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"upload"
+					],
+					"query": [
+						{
+							"key": "apiKey",
+							"value": "4ab6adccb1719148d24d"
+						},
+						{
+							"key": "folderName",
+							"value": "b2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"root\",\n    \"email\": \"example@gmail.com\",\n    \"password\": \"root0123\",\n    \"roles\": \"admin\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/auth/login?apiKey=ce7cc67c761340b7b7af",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"login"
+					],
+					"query": [
+						{
+							"key": "apiKey",
+							"value": "ce7cc67c761340b7b7af"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a bucket",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YTdkMzQ1ZjU0NjIxODk0ODVkYmFmZiIsInVzZXJuYW1lIjoicm9vdCIsImlhdCI6MTcwNTQ5NzQ3MH0.6raNDX1Xm6dRrhprXuQL2qrq7fWBYpIP6oW_q6HwKmo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"folderName\" : \"b1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/createapp?apiKey=11c06f4b78e9c01243a7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"createapp"
+					],
+					"query": [
+						{
+							"key": "apiKey",
+							"value": "11c06f4b78e9c01243a7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllBuckets",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YTdkMzQ1ZjU0NjIxODk0ODVkYmFmZiIsInVzZXJuYW1lIjoicm9vdCIsImlhdCI6MTcwNTQ5NzQ3MH0.6raNDX1Xm6dRrhprXuQL2qrq7fWBYpIP6oW_q6HwKmo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/getAllBuckets?apikey=11c06f4b78e9c01243a7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"getAllBuckets"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "11c06f4b78e9c01243a7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllFilesFromParticularBucket",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YTdkMzQ1ZjU0NjIxODk0ODVkYmFmZiIsInVzZXJuYW1lIjoicm9vdCIsImlhdCI6MTcwNTQ5NzQ3MH0.6raNDX1Xm6dRrhprXuQL2qrq7fWBYpIP6oW_q6HwKmo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"bucketName\": \"b1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/getAllFilesFromParticularBucket?apikey=11c06f4b78e9c01243a7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"getAllFilesFromParticularBucket"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "11c06f4b78e9c01243a7"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,30 +1,30 @@
 import File from "../model/file";
 import fs from 'fs';
 import path from 'path';
-export const uploadFile = (req: any, res: any, next:any)=>{
-    try{
-        if(req.file){
+export const uploadFile = (req: any, res: any, next: any) => {
+    try {
+        if (req.file) {
             return res.status(201).json({
                 message: 'File upload success!',
                 file: req.file
             })
-        }else{
+        } else {
             return res.status(404).json({
                 error: 'Empty file field',
                 message: 'Select a file to upload'
             })
         }
-    }catch(err){
+    } catch (err) {
         console.error(err)
         return res.status(400).json({
-            error: 'Internal filesystem error', 
+            error: 'Internal filesystem error',
             message: 'Please check the filesystem and try again'
         })
     }
 }
-export const uploadFileToBucket = async (req:any, res:any,next:any) => {
+export const uploadFileToBucket = async (req: any, res: any, next: any) => {
     if (req.file) {
-        const filefullPath = req.file.destination + '/' + req.file.originalname;
+        const filefullPath = req.body.destination + '/' + req.file.originalname;
         console.log(filefullPath)
         //const uploaded = new File({ userId: req.user._id, filename: req.file.originalname, mimeType: req.file.mimetype, path: filefullPath });
         const uploaded = await File.create({ userId: req.user._id, filename: req.file.originalname, mimeType: req.file.mimetype, path: filefullPath });
@@ -34,9 +34,9 @@ export const uploadFileToBucket = async (req:any, res:any,next:any) => {
     }
 };
 
-export const getAllBuckets = async (req:any, res:any) => {
-    const directoryPath = path.join('bucketFolder');
-    
+export const getAllBuckets = async (req: any, res: any) => {
+    const directoryPath = path.join('bucket');
+    console.log(directoryPath)
     //passsing directoryPath and callback function
     fs.readdir(directoryPath, (err, files) => {
         if (err) {
@@ -47,14 +47,15 @@ export const getAllBuckets = async (req:any, res:any) => {
             const filePath = path.join(directoryPath, file);
             return fs.statSync(filePath).isDirectory();
         });
-        console.log(directories);
+
         return res.json({ status: true, success: directories });
     });
 }
-export const getFileFromBucket = async (req:any, res:any) => {
+export const getFileFromBucket = async (req: any, res: any) => {
     try {
         const bucketName = req.body.bucketName;
-        const directoryPath = path.join(`bucketFolder/${bucketName}`);
+        const directoryPath = path.join(`bucket/${bucketName}`);
+
         fs.readdir(directoryPath, (err, files) => {
             if (err) {
                 return res.json({ status: false, message: `${bucketName}, No Such Bucket Found` });
@@ -69,6 +70,13 @@ export const getFileFromBucket = async (req:any, res:any) => {
             return res.json({ status: true, filesList: allfiles });
         });
     } catch (error) {
-        console.log("error------->>", error);
+        console.error(error);
     }
+}
+export const getBucktPath = async (req: any, res: any,next:any) => {
+    const {bucketName} = req.body
+    console.log(bucketName)
+   
+    next()
+
 }

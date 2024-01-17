@@ -1,17 +1,23 @@
 import multer from 'multer';
 import path from 'path';
+import fs from 'fs'
 const storage = multer.diskStorage({
-    filename: (req, file, callback) => {
-        callback(null, file.originalname );
-    },
-    destination(req, file, callback) {
-        callback(null, `./bucket`)        
-    },
+  
+    destination: function (req:any, file, cb) {
+        const folderName = req.query.folderName;
+        console.log(req.query);
+        const path = `bucket/${folderName}/`;
+        fs.mkdirSync(path, { recursive: true })
+        cb(null, path);
+      },
+      filename: function (req:any, file, cb) {
+        cb(null, Date.now() + path.extname(file.originalname));
+      }
 });
 const upload = multer({
     storage: storage, 
     limits: {
-        fileSize: 10000000 // 1000000 Bytes = 1 MB
+        fileSize: 10000000 
       },
 })
 

@@ -3,29 +3,37 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-    "username": "zoor",
-    "email": "root@gmail.com",
-    "password": "Root0123",
-    "roles": "admin"
+    "username": "<user>",
+    "email": "<email>",
+    "password": "<pass>",
+    "roles": "<role>"
 }
 
 ###
-POST http://localhost:3000/auth/login?apiKey=ce7cc67c761340b7b7af
+POST http://localhost:3000/auth/login?apiKey={api}
 Content-Type: application/json
 
 {
-    "email": "root@gmail.com",
-    "password": "Root0123"
+    "email": "<email>",
+    "password": "<pass>"
 }
 ###
-POST http://localhost:3000/createapp?apiKey=ce7cc67c761340b7b7af
+POST http://localhost:3000/createapp?apiKey={api}
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YTdhYTcyZmI2N2ZmMjRmNzI3YTI1OSIsInVzZXJuYW1lIjoiem9vciIsImlhdCI6MTcwNTQ5MDU0OX0.3yxkoBXZqvS5216INfVhOmrf-vPCW_EEcQfBTGvPkpw
+Authorization: Bearer {token}
 
 
 {
-    "folderName" : "b2"
+    "folderName" : "<name of bucket>"
 }
 
 ### 
-GET http://localhost:3000/getAllBuckets
+GET http://localhost:3000/getAllBuckets?apikey={api}
+Authorization: Bearer {token}
+### 
+
+GET http://localhost:3000/getAllFilesFromParticularBucket?apikey={api}
+Authorization: Bearer {token}
+
+###
+POST http://localhost:3000/upload?apiKey={api}&folderName={bucketName}

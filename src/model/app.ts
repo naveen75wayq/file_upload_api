@@ -2,8 +2,8 @@ import mongoose, { Schema, SchemaTypes, model } from 'mongoose';
 
 export interface AppDocument extends Document {
     applicationName: string;
-    description: string;
-    files: Schema.Types.ObjectId[];
+    apiKey: string;
+    whitelistedDomains: string[];
     
 }
 const appSchema = new Schema<AppDocument>({
@@ -11,16 +11,8 @@ const appSchema = new Schema<AppDocument>({
     type: String,
     required: true,
   },
-  description: {
-    type: String,
-    required: true,
-  },
-  files: [
-    {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: 'File',
-    },
-  ]
+  apiKey: { type: String, required: true, unique: true },
+  whitelistedDomains: [{ type: String, required: true }],
 
 });
 

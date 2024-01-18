@@ -1,9 +1,12 @@
 import express from 'express';
 import { register , login} from '../controllers/authController';
-import { authenticateToken, userAuthMiddleware } from '../middleware/authMiddleware';
+import { /* authenticateToken, */ authenticateToken, userAuthMiddleware } from '../middleware/authMiddleware';
 const router = express.Router();
 
-router.post('/register', register)
-router.post('/login',userAuthMiddleware ,login)
+// Register a user
+router.post('/register',register)
+
+// Login a user with access token
+router.post('/login',login)
 
 export default router;

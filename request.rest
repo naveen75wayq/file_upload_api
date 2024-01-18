@@ -3,37 +3,36 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-    "username": "<user>",
-    "email": "<email>",
-    "password": "<pass>",
-    "roles": "<role>"
+    "username": "user1",
+    "email": "test6@gmail.com",
+    "password": "test0123",
+    "roles": "admin"
 }
 
 ###
-POST http://localhost:3000/auth/login?apiKey={api}
+POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "email": "<email>",
-    "password": "<pass>"
+    "email": "test6@gmail.com",
+    "password": "test0123"
 }
 ###
-POST http://localhost:3000/createapp?apiKey={api}
+POST http://localhost:3000/createapp
 Content-Type: application/json
-Authorization: Bearer {token}
-
 
 {
-    "folderName" : "<name of bucket>"
+    "applicationName" : "rs1",
+    "whitelistedDomains" : ["test@gmail.com"]
 }
 
 ### 
-GET http://localhost:3000/getAllBuckets?apikey={api}
-Authorization: Bearer {token}
+GET http://localhost:3000/getAllBuckets?apikey=c5cc5ba0e2101354e3ce
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YThjY2VhYjc1M2QxOGFkN2U3YWQxMSIsInVzZXJuYW1lIjoiYWEiLCJpYXQiOjE3MDU1NjEzNzl9.UwDMvyXwabbNDlWoEBCQHA72V-PF3BPfR8SMWarn9z8
 ### 
 
 GET http://localhost:3000/getAllFilesFromParticularBucket?apikey={api}
 Authorization: Bearer {token}
 
 ###
-POST http://localhost:3000/upload?apiKey={api}&folderName={bucketName}
+POST http://localhost:3000/upload?&folderName={bucketName}

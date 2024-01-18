@@ -11,6 +11,7 @@ const fileSchema = new Schema<FileDocument>({
         {
             type: mongoose.SchemaTypes.ObjectId,
             ref: 'User',
+            required: true,
         }
 
     ],

@@ -1,33 +1,25 @@
 import File from "../model/file";
 import fs from 'fs';
 import path from 'path';
-export const uploadFile = (req: any, res: any, next: any) => {
-    try {
-        if (req.file) {
-            return res.status(201).json({
-                message: 'File upload success!',
-                file: req.file
-            })
-        } else {
-            return res.status(404).json({
-                error: 'Empty file field',
-                message: 'Select a file to upload'
-            })
-        }
-    } catch (err) {
-        console.error(err)
-        return res.status(400).json({
-            error: 'Internal filesystem error',
-            message: 'Please check the filesystem and try again'
-        })
-    }
-}
+import  User from "../model/user";
+
+
 export const uploadFileToBucket = async (req: any, res: any, next: any) => {
     if (req.file) {
-        const filefullPath = req.body.destination + '/' + req.file.originalname;
-        console.log(filefullPath)
-        //const uploaded = new File({ userId: req.user._id, filename: req.file.originalname, mimeType: req.file.mimetype, path: filefullPath });
-        const uploaded = await File.create({ userId: req.user._id, filename: req.file.originalname, mimeType: req.file.mimetype, path: filefullPath });
+        
+        const filefullPath = req.file.destination  + req.file.originalname;
+        const uploaded = await File.create({ userId: req.user.id, filename: req.file.originalname, mimeType: req.file.mimetype, path: filefullPath });
+        const user  = await User.findById(req.user.id)
+        if (user) {
+            if (user.uploads) {
+              user.uploads.push(uploaded.id);
+            } else {
+              user.uploads = [uploaded.id];
+            }
+            await user.save();
+          } else {
+            console.error('User not found.');
+          }
         console.log(uploaded)
         await uploaded.save();
         res.json({ status: true, success: "File Uploaded Successfully" });
@@ -36,7 +28,6 @@ export const uploadFileToBucket = async (req: any, res: any, next: any) => {
 
 export const getAllBuckets = async (req: any, res: any) => {
     const directoryPath = path.join('bucket');
-    console.log(directoryPath)
     //passsing directoryPath and callback function
     fs.readdir(directoryPath, (err, files) => {
         if (err) {
@@ -80,3 +71,29 @@ export const getBucktPath = async (req: any, res: any,next:any) => {
     next()
 
 }
+/* export const userController = async (req: any, res: any) => {
+    const { id } = req.params;
+    const { decoded } = req; // Access the apiKey set by the middleware
+    try {
+      const findAppName = await App.findOne({ _id: id });
+      if (findAppName) {
+        const whitelistedDomains = findAppName.whitelistedDomains;
+        const isWhitelisted = whitelistedDomains.includes(decoded?.email);
+  
+        if (isWhitelisted) {
+          // If email is whitelisted, respond accordingly
+          res.status(200).json({ youAPIkey: findAppName.apiKey });
+        } else {
+          res
+            .status(403)
+            .json({ error: "User is not whitelisted for this app." });
+        }
+      } else {
+        res.status(500).json({ error: "No App found" });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
+   */
